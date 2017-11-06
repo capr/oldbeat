@@ -97,20 +97,30 @@ function change(di) {
 $(function() {
 	i = parseInt(location.pathname.match(/(\d+)$/)) || 1
 	change(0)
+	
 	$('.photo').click(function(e) {
 		e.preventDefault()
 		var x = e.clientX - $(this).offset().left
 		var di = (x > $(this).width() / 2 ? 1 : -1)
 		change(di)
 	})
+	
 	$('.next').click(function(e) {
 		change(1)
 	}).mousedown(function(e) { e.preventDefault(); })
+	
 	$('.prev').click(function(e) {
 		e.preventDefault()
 		change(-1)
 	}).mousedown(function(e) { e.preventDefault(); })
 
+	$(document).keydown(function(e) {
+		if (e.which == 39) // right	
+			$('.next').click()
+		else if (e.which == 37) // left
+			$('.prev').click()
+	})
+	
 	var lights = 0
 	$('.avatar').click(function() {
 		lights = 1-lights
